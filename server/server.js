@@ -16,6 +16,12 @@ const SECRET_KEY = process.env.SECRET_KEY || 'edufocus_secret_key_change_me';
 
 // --- AUTO-RECONNECT WHATSAPP ON BOOT ---
 async function reconnectWhatsAppSessions() {
+    // Desabilitar WhatsApp em produção (Render) para evitar problemas de inicialização
+    if (process.env.NODE_ENV === 'production') {
+        console.log('⚠️ WhatsApp desabilitado em produção (Render)');
+        return;
+    }
+
     const authBasePath = path.join(__dirname, 'whatsapp-auth');
     if (fs.existsSync(authBasePath)) {
         const folders = fs.readdirSync(authBasePath);
