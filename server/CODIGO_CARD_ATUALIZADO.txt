@@ -1,0 +1,36 @@
+            // GERAR E ENVIAR CARD VISUAL COM FOTO DO ALUNO
+            if (student.photo_url && student.photo_url.startsWith('data:image')) {
+                try {
+                    console.log(`🎨 Gerando card visual para ${student.name}...`);
+                    
+                    // Gerar card HTML como imagem
+                    const cardImage = await generateArrivalCard({
+                        studentName: student.name,
+                        studentPhoto: student.photo_url,
+                        className: student.class_name,
+                        schoolName: schoolName,
+                        date: date,
+                        time: time
+                    });
+                    
+                    console.log(`📸 Enviando card visual para WhatsApp...`);
+                    
+                    // Enviar card como imagem
+                    await this.sock.sendMessage(phoneNumber, {
+                        image: cardImage,
+                        caption: `✅ ${student.name} chegou com segurança!\n🎓 ${schoolName}`
+                    });
+                    
+                    console.log(`✅ Card visual enviado para ${student.name} (${student.phone}) - Escola ${this.schoolId}`);
+                    
+                } catch (cardError) {
+                    console.log(`⚠️ Erro ao gerar card, enviando mensagem simples:`, cardError.message);
+                    // Se falhar ao gerar card, envia mensagem de texto
+                    await this.sock.sendMessage(phoneNumber, { text: message });
+                    console.log(`✅ Mensagem simples enviada para ${student.name}`);
+                }
+            } else {
+                // Aluno não tem foto - enviar só mensagem de texto
+                await this.sock.sendMessage(phoneNumber, { text: message });
+                console.log(`✅ Notificação enviada para ${student.name} (${student.phone}) - Escola ${this.schoolId}`);
+            }

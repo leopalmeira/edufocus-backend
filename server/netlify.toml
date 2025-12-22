@@ -1,0 +1,9 @@
+# Netlify configuration for backend (serverless functions)
+
+[build]
+  base = "server"
+  functions = "netlify/functions"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "18"

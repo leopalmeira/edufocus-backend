@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+    <title>EduFocus Responsáveis</title>
+    <link rel="manifest" href="/guardian-pwa/manifest.json">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0 30px;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #94a3b8;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .input::placeholder {
+            color: #64748b;
+        }
+
+        .button {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 18px;
+            border-radius: 12px;
+            border: none;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 20px;
+            color: #94a3b8;
+        }
+
+        .link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .student-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .student-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .student-info h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .student-info p {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        /* Notification Overlay */
+        .notification-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .circle-container {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .outer-circle {
+            width: 280px;
+            height: 280px;
+            border-radius: 140px;
+            background: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 60px rgba(59, 130, 246, 0.8);
+            animation: pulse 2s infinite;
+        }
+
+        .inner-circle {
+            width: 240px;
+            height: 240px;
+            border-radius: 120px;
+            background: #1e293b;
+            border: 4px solid #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            font-weight: 700;
+        }
+
+        .timer {
+            position: absolute;
+            bottom: -20px;
+            background: #3b82f6;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 3px solid #0f172a;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .notification-info {
+            text-align: center;
+        }
+
+        .notification-info h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .notification-info h3 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .notification-info p {
+            font-size: 18px;
+            color: #94a3b8;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .install-prompt {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .install-prompt button {
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div id="loginScreen">
+            <div class="header">
+                <div class="logo">📱</div>
+                <h1 class="title">EduFocus</h1>
+                <p class="subtitle">Responsáveis</p>
+            </div>
+
+            <div id="installPrompt" class="install-prompt hidden">
+                <p>📲 Instale o app na tela inicial!</p>
+                <button class="button" onclick="installApp()">Instalar App</button>
+            </div>
+
+            <div class="card">
+                <input type="email" id="loginEmail" class="input" placeholder="Email">
+                <input type="password" id="loginPassword" class="input" placeholder="Senha">
+                <button class="button" onclick="login()">Entrar</button>
+            </div>
+
+            <div class="link">
+                Não tem conta? <a href="#" onclick="showRegister()">Cadastre-se</a>
+            </div>
+        </div>
+
+        <!-- Register Screen -->
+        <div id="registerScreen" class="hidden">
+            <div class="header">
+                <h1 class="title">Criar Conta</h1>
+                <p class="subtitle">Preencha seus dados</p>
+            </div>
+
+            <div class="card">
+                <input type="text" id="regName" class="input" placeholder="Nome completo">
+                <input type="email" id="regEmail" class="input" placeholder="Email">
+                <input type="tel" id="regPhone" class="input" placeholder="Telefone (opcional)">
+                <input type="password" id="regPassword" class="input" placeholder="Senha">
+                <button class="button" onclick="register()">Cadastrar</button>
+            </div>
+
+            <div class="link">
+                <a href="#" onclick="showLogin()">Voltar para login</a>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div id="dashboardScreen" class="hidden">
+            <div class="header">
+                <h1 class="title" id="greeting">Olá! 👋</h1>
+            </div>
+
+            <div class="card">
+                <h2 style="margin-bottom: 16px;">Meus Alunos</h2>
+                <div id="studentsList"></div>
+                <button class="button" onclick="showLinkStudent()">➕ Vincular Aluno</button>
+                <button class="button" onclick="testNotification()"
+                    style="margin-top: 12px; background: linear-gradient(135deg, #10b981, #059669);">
+                    🔔 Testar Notificação
+                </button>
+            </div>
+
+            <div class="link">
+                <a href="#" onclick="logout()">Sair</a>
+            </div>
+        </div>
+
+        <!-- Link Student Screen -->
+        <div id="linkStudentScreen" class="hidden">
+            <div class="header">
+                <h1 class="title">Vincular Aluno</h1>
+            </div>
+
+            <div class="card">
+                <select id="schoolSelect" class="input">
+                    <option value="">Selecione a escola</option>
+                </select>
+                <input type="text" id="studentName" class="input" placeholder="Nome completo do aluno">
+                <input type="text" id="className" class="input" placeholder="Turma (ex: 5º Ano A)">
+                <button class="button" onclick="linkStudent()">Vincular</button>
+            </div>
+
+            <div class="link">
+                <a href="#" onclick="showDashboard()">Voltar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Overlay -->
+    <div id="notificationOverlay" class="notification-overlay hidden">
+        <div class="circle-container">
+            <div class="outer-circle">
+                <div class="inner-circle" id="studentInitial">J</div>
+            </div>
+            <div class="timer" id="timer">10s</div>
+        </div>
+        <div class="notification-info">
+            <h2>🎉 Aluno Chegou!</h2>
+            <h3 id="studentNameNotif">João Silva</h3>
+            <p id="studentDetails">5º Ano A • 07:32</p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        let deferredPrompt;
+        let currentUser = null;
+
+        // PWA Install
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installPrompt').classList.remove('hidden');
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('App instalado!');
+                    }
+                    deferredPrompt = null;
+                    document.getElementById('installPrompt').classList.add('hidden');
+                });
+            }
+        }
+
+        // Check if already logged in
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            if (token && user) {
+                currentUser = JSON.parse(user);
+                showDashboard();
+                loadStudents();
+                startNotificationPoller();
+            }
+
+            // Register service worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/guardian-pwa/sw.js');
+            }
+        });
+
+        function showLogin() {
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('registerScreen').classList.add('hidden');
+            document.getElementById('dashboardScreen').classList.add('hidden');
+            document.getElementById('linkStudentScreen').classList.add('hidden');
+        }
+
+        function showRegister() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('registerScreen').classList.remove('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('registerScreen').classList.add('hidden');
+            document.getElementById('dashboardScreen').classList.remove('hidden');
+            document.getElementById('linkStudentScreen').classList.add('hidden');
+
+            if (currentUser) {
+                document.getElementById('greeting').textContent = `Olá, ${currentUser.name}! 👋`;
+            }
+        }
+
+        function showLinkStudent() {
+            document.getElementById('dashboardScreen').classList.add('hidden');
+            document.getElementById('linkStudentScreen').classList.remove('hidden');
+            loadSchools();
+        }
+
+        async function register() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const phone = document.getElementById('regPhone').value;
+            const password = document.getElementById('regPassword').value;
+
+            if (!name || !email || !password) {
+                alert('Preencha todos os campos obrigatórios');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/guardian/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone, password })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Erro ao cadastrar');
+                }
+
+                alert('Conta criada com sucesso! Faça login para continuar.');
+                showLogin();
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                alert('Preencha todos os campos');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/guardian/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Erro no login');
+                }
+
+                const data = await response.json();
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                currentUser = data.user;
+
+                showDashboard();
+                loadStudents();
+                startNotificationPoller();
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            currentUser = null;
+            showLogin();
+        }
+
+        async function loadSchools() {
+            try {
+                const response = await fetch(`${API_URL}/guardian/schools`);
+                const schools = await response.json();
+
+                const select = document.getElementById('schoolSelect');
+                select.innerHTML = '<option value="">Selecione a escola</option>';
+                schools.forEach(school => {
+                    const option = document.createElement('option');
+                    option.value = school.id;
+                    option.textContent = school.name;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar escolas:', error);
+            }
+        }
+
+        async function linkStudent() {
+            const schoolId = document.getElementById('schoolSelect').value;
+            const studentName = document.getElementById('studentName').value;
+            const className = document.getElementById('className').value;
+            const token = localStorage.getItem('token');
+
+            if (!schoolId || !studentName || !className) {
+                alert('Preencha todos os campos');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/guardian/link-student`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ schoolId, studentName, className })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || error.message || 'Erro ao vincular');
+                }
+
+                const data = await response.json();
+                alert(`${data.student.name} vinculado com sucesso!`);
+                showDashboard();
+                loadStudents();
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        async function loadStudents() {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch(`${API_URL}/guardian/my-students`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const students = await response.json();
+                const list = document.getElementById('studentsList');
+
+                if (students.length === 0) {
+                    list.innerHTML = '<p style="color: #94a3b8; text-align: center;">Nenhum aluno vinculado</p>';
+                    return;
+                }
+
+                list.innerHTML = students.map(student => `
+                    <div class="student-card">
+                        <div class="student-avatar">${student.name.charAt(0)}</div>
+                        <div class="student-info">
+                            <h3>${student.name}</h3>
+                            <p>${student.class_name} • ${student.schoolName}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Erro ao carregar alunos:', error);
+            }
+        }
+
+        let pollInterval;
+
+        function startNotificationPoller() {
+            if (pollInterval) clearInterval(pollInterval);
+
+            pollInterval = setInterval(async () => {
+                const token = localStorage.getItem('token');
+                if (!token) return;
+
+                try {
+                    const response = await fetch(`${API_URL}/guardian/check-notifications`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.notification) {
+                            showNotification(data.notification);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Erro no polling:', error);
+                }
+            }, 5000); // Verificar a cada 5 segundos
+        }
+
+        function showNotification(notification) {
+            const overlay = document.getElementById('notificationOverlay');
+
+            // Se já estiver visível, não interromper (exceto se for outro aluno)
+            if (!overlay.classList.contains('hidden')) return;
+
+            // Atualizar dados
+            document.getElementById('studentNameNotif').textContent = notification.studentName;
+
+            const time = new Date(notification.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            const typeText = notification.type === 'entry' ? 'Chegou na escola' : 'Saiu da escola';
+            document.getElementById('studentDetails').textContent = `${notification.className} • ${typeText} às ${time}`;
+            document.getElementById('studentInitial').textContent = notification.studentName.charAt(0);
+
+            // Mostrar overlay
+            overlay.classList.remove('hidden');
+
+            // Som (se possível)
+            const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+            audio.play().catch(e => console.log('Erro ao tocar som:', e));
+
+            // Vibrar
+            if ('vibrate' in navigator) {
+                navigator.vibrate([500, 200, 500, 200, 500]);
+            }
+
+            // Timer
+            let seconds = 15;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = `${seconds}s`;
+
+            const interval = setInterval(() => {
+                seconds--;
+                timerEl.textContent = `${seconds}s`;
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    overlay.classList.add('hidden');
+                }
+            }, 1000);
+        }
+
+        function testNotification() {
+            showNotification({
+                studentName: 'Teste da Silva',
+                className: 'Turma Teste',
+                timestamp: new Date().toISOString(),
+                type: 'entry'
+            });
+        }
+    </script>
+</body>
+
+</html>

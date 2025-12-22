@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Teste de Login - EduFocus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        input,
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Teste de Login Local</h1>
+    <input type="email" id="email" placeholder="Email" value="admin@edufocus.com">
+    <input type="password" id="password" placeholder="Senha" value="admin123">
+    <button onclick="testarLogin()">Testar Login</button>
+    <div id="result"></div>
+
+    <script>
+        async function testarLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.innerHTML = '⏳ Testando...';
+            resultDiv.className = '';
+
+            try {
+                const response = await fetch('http://localhost:5000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <strong>✅ LOGIN SUCESSO!</strong><br>
+                        Email: ${data.user.email}<br>
+                        Role: ${data.role}<br>
+                        Token: ${data.token.substring(0, 50)}...
+                    `;
+                    resultDiv.className = 'success';
+                } else {
+                    resultDiv.innerHTML = `
+                        <strong>❌ ERRO:</strong><br>
+                        ${data.message || 'Erro desconhecido'}
+                    `;
+                    resultDiv.className = 'error';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <strong>❌ ERRO DE CONEXÃO:</strong><br>
+                    ${error.message}<br><br>
+                    <small>Verifique se o backend está rodando em http://localhost:5000</small>
+                `;
+                resultDiv.className = 'error';
+            }
+        }
+    </script>
+</body>
+
+</html>

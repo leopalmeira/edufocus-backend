@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#6366f1">
+    <title>EduFocus Responsáveis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafafa;
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .container {
+            max-width: 440px;
+            margin: 0 auto;
+            background: white;
+        }
+
+        /* Header */
+        .header {
+            background: #6366f1;
+            padding: 16px 20px;
+            color: white;
+        }
+
+        .header-greeting {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        /* Content */
+        .content {
+            padding: 16px;
+        }
+
+        /* Child Card */
+        .child-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .child-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #6366f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .child-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .child-info {
+            flex: 1;
+        }
+
+        .child-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 2px;
+        }
+
+        .child-details {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* Add Button */
+        .add-btn {
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 12px;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 4px 12px;
+            color: #9ca3af;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active {
+            color: #6366f1;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* Empty State */
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.2;
+        }
+
+        .empty-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .empty-text {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        /* Login/Register */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #6366f1;
+        }
+
+        .auth-header {
+            padding: 40px 20px 24px;
+            text-align: center;
+            color: white;
+        }
+
+        .auth-logo {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .auth-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .auth-subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .auth-content {
+            flex: 1;
+            background: white;
+            border-radius: 24px 24px 0 0;
+            padding: 24px 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            background: #6366f1;
+            color: white;
+            cursor: pointer;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .link a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .alert {
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Link Flow */
+        .steps {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            flex: 1;
+            height: 3px;
+            background: #e5e7eb;
+            border-radius: 2px;
+        }
+
+        .step.active {
+            background: #6366f1;
+        }
+
+        .result-item {
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .result-item.selected {
+            background: #ede9fe;
+            border-color: #6366f1;
+        }
+
+        .preview {
+            text-align: center;
+            padding: 24px;
+            background: #f9fafb;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+
+        .preview-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            background: #6366f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .preview-photo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .preview-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .preview-details {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            background: #f3f4f6;
+            color: #374151;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div id="loginScreen">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="auth-logo">📱</div>
+                    <h1 class="auth-title">EduFocus</h1>
+                    <p class="auth-subtitle">Acompanhe seu filho</p>
+                </div>
+                <div class="auth-content">
+                    <div id="loginError" class="alert alert-error hidden"></div>
+                    <div class="form-group">
+                        <label class="label">Email</label>
+                        <input type="email" id="loginEmail" class="input" placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Senha</label>
+                        <input type="password" id="loginPassword" class="input" placeholder="••••••••">
+                    </div>
+                    <button class="btn-primary" onclick="login()">Entrar</button>
+                    <div class="link">
+                        Não tem conta? <a href="#" onclick="showRegister()">Cadastre-se</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Screen -->
+        <div id="registerScreen" class="hidden">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="auth-logo">✨</div>
+                    <h1 class="auth-title">Criar Conta</h1>
+                    <p class="auth-subtitle">Preencha seus dados</p>
+                </div>
+                <div class="auth-content">
+                    <div id="registerError" class="alert alert-error hidden"></div>
+                    <div id="registerSuccess" class="alert alert-success hidden"></div>
+                    <div class="form-group">
+                        <label class="label">Nome Completo</label>
+                        <input type="text" id="regName" class="input" placeholder="João Silva">
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Email</label>
+                        <input type="email" id="regEmail" class="input" placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Telefone</label>
+                        <input type="tel" id="regPhone" class="input" placeholder="(11) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Senha</label>
+                        <input type="password" id="regPassword" class="input" placeholder="••••••••">
+                    </div>
+                    <button class="btn-primary" onclick="register()">Criar Conta</button>
+                    <div class="link">
+                        <a href="#" onclick="showLogin()">← Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Screen -->
+        <div id="homeScreen" class="hidden">
+            <div class="header">
+                <h1 class="header-greeting" id="greeting">Olá!</h1>
+                <p class="header-subtitle">Meus Filhos</p>
+            </div>
+            <div class="content">
+                <div id="childrenList"></div>
+                <button class="add-btn" onclick="navigate('link')">+ Vincular Filho</button>
+            </div>
+        </div>
+
+        <!-- Link Screen -->
+        <div id="linkScreen" class="hidden">
+            <div class="header">
+                <h1 class="header-greeting">Vincular Filho</h1>
+                <p class="header-subtitle" id="stepTitle">Passo 1: Escola</p>
+            </div>
+            <div class="content">
+                <div class="steps">
+                    <div class="step active" id="bar1"></div>
+                    <div class="step" id="bar2"></div>
+                    <div class="step" id="bar3"></div>
+                    <div class="step" id="bar4"></div>
+                </div>
+
+                <div id="linkError" class="alert alert-error hidden"></div>
+                <div id="linkSuccess" class="alert alert-success hidden"></div>
+
+                <div id="step1">
+                    <div class="form-group">
+                        <label class="label">Nome da escola</label>
+                        <input type="text" id="schoolInput" class="input" placeholder="Digite o nome..."
+                            oninput="searchSchools()">
+                    </div>
+                    <div id="schoolResults"></div>
+                </div>
+
+                <div id="step2" class="hidden">
+                    <div class="form-group">
+                        <label class="label">Turma</label>
+                        <div id="classResults"></div>
+                    </div>
+                </div>
+
+                <div id="step3" class="hidden">
+                    <div class="form-group">
+                        <label class="label">Nome completo do filho</label>
+                        <input type="text" id="studentInput" class="input" placeholder="Digite o nome..."
+                            oninput="searchStudent()">
+                    </div>
+                </div>
+
+                <div id="step4" class="hidden">
+                    <div class="preview">
+                        <div class="preview-photo" id="previewPhoto">?</div>
+                        <div class="preview-name" id="previewName">-</div>
+                        <div class="preview-details" id="previewDetails">-</div>
+                    </div>
+                    <button class="btn-primary" onclick="confirmLink()">Confirmar</button>
+                </div>
+
+                <button class="btn-secondary" onclick="navigate('home')">Voltar</button>
+            </div>
+        </div>
+
+        <!-- Reports Screen -->
+        <div id="reportsScreen" class="hidden">
+            <div class="header">
+                <h1 class="header-greeting">Relatórios</h1>
+                <p class="header-subtitle">Frequência e desempenho</p>
+            </div>
+            <div class="content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-value">23</div>
+                        <div class="stat-label">Dias presentes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-value">07:45</div>
+                        <div class="stat-label">Horário médio</div>
+                    </div>
+                </div>
+                <div class="section-title">Frequência Mensal</div>
+                <div class="empty">
+                    <div class="empty-icon">📊</div>
+                    <p class="empty-title">Em breve</p>
+                    <p class="empty-text">Relatórios detalhados</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Screen -->
+        <div id="notificationsScreen" class="hidden">
+            <div class="header">
+                <h1 class="header-greeting">Notificações</h1>
+                <p class="header-subtitle">Chegadas e saídas</p>
+            </div>
+            <div class="content">
+                <div class="empty">
+                    <div class="empty-icon">🔔</div>
+                    <p class="empty-title">Nenhuma notificação</p>
+                    <p class="empty-text">Você será notificado</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Screen -->
+        <div id="messagesScreen" class="hidden">
+            <div class="header">
+                <h1 class="header-greeting">Mensagens</h1>
+                <p class="header-subtitle">Comunicação</p>
+            </div>
+            <div class="content">
+                <div class="empty">
+                    <div class="empty-icon">💬</div>
+                    <p class="empty-title">Nenhuma mensagem</p>
+                    <p class="empty-text">Converse com a escola</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settingsScreen" class="hidden">
+            <div class="header">
+                <h1 class="header-greeting">Configurações</h1>
+                <p class="header-subtitle">Sua conta</p>
+            </div>
+            <div class="content">
+                <div class="section-title">Dados da Conta</div>
+                <div class="form-group">
+                    <label class="label">Nome</label>
+                    <input type="text" id="settingsName" class="input">
+                </div>
+                <div class="form-group">
+                    <label class="label">Email</label>
+                    <input type="email" id="settingsEmail" class="input" disabled>
+                </div>
+                <div class="form-group">
+                    <label class="label">Telefone</label>
+                    <input type="tel" id="settingsPhone" class="input">
+                </div>
+                <button class="btn-primary">Salvar</button>
+                <button class="btn-secondary" onclick="logout()">Sair</button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav hidden" id="bottomNav">
+            <div class="nav-item active" onclick="navigate('home')">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Início</div>
+            </div>
+            <div class="nav-item" onclick="navigate('reports')">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Relatórios</div>
+            </div>
+            <div class="nav-item" onclick="navigate('notifications')">
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">Avisos</div>
+            </div>
+            <div class="nav-item" onclick="navigate('messages')">
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">Mensagens</div>
+            </div>
+            <div class="nav-item" onclick="navigate('settings')">
+                <div class="nav-icon">⚙️</div>
+                <div class="nav-label">Conta</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // [REVERTIDO] API ORIGINAL (Porta 3000)
+        const API_URL = 'http://localhost:3000/api';
+
+        let user = null;
+        let selectedSchool = null;
+        let selectedClass = null;
+        let selectedStudent = null;
+        let eventSource = null;
+
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('token');
+            const userData = localStorage.getItem('user');
+
+            if (token && userData) {
+                try {
+                    user = JSON.parse(userData);
+                    navigate('home');
+                    startNotificationPoller();
+                } catch (e) {
+                    showLogin();
+                }
+            } else {
+                showLogin();
+            }
+        });
+
+        // --- REAL-TIME: SERVER SENT EVENTS (Webhook Listening) ---
+        function startNotificationListener() {
+            if (eventSource && (eventSource.readyState === 0 || eventSource.readyState === 1)) return; // Já conectado ou conectando
+
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            // Conectar ao endpoint SSE unificado
+            const sseUrl = `${API_URL}/guardian/events?token=${token}`;
+            console.log('📡 Conectando ao canal de notificações (SSE)...', sseUrl);
+
+            eventSource = new EventSource(sseUrl);
+
+            eventSource.onopen = () => console.log('✅ Canal de Notificações Ativo (SSE)');
+
+            eventSource.onmessage = (event) => {
+                try {
+                    // Ignorar heartbeat ou mensagens de controle se houver
+                    if (!event.data || event.data.includes('"type":"connected"')) return;
+
+                    const payload = JSON.parse(event.data);
+
+                    if (payload.type === 'notification') {
+                        console.log('🔔 Notificação Recebida (SSE):', payload.data);
+                        showNotificationOverlay(payload.data);
+                        markAsRead(payload.data.id);
+                    }
+                } catch (e) {
+                    // console.error('Erro ao processar evento SSE:', e);
+                }
+            };
+
+            eventSource.onerror = (err) => {
+                // console.log('⚠️ Conexão SSE instável...');
+            };
+        }
+
+        function stopNotificationListener() {
+            if (eventSource) {
+                eventSource.close();
+                eventSource = null;
+            }
+        }
+
+        // --- SISTEMA DE NOTIFICAÇÃO (POLLING - COMO ERA ANTES) ---
+        let notificationPoller = null;
+
+        function startNotificationPoller() {
+            if (notificationPoller) return;
+            console.log('📡 Iniciando Polling (2s)...');
+            checkNotifications();
+            notificationPoller = setInterval(checkNotifications, 2000);
+        }
+
+        function stopNotificationPoller() {
+            if (notificationPoller) {
+                clearInterval(notificationPoller);
+                notificationPoller = null;
+            }
+        }
+
+        let isFetching = false;
+        async function checkNotifications() {
+            if (isFetching) return;
+            isFetching = true;
+
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) return;
+
+                const res = await fetch(`${API_URL}/guardian/notifications`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!res.ok) return;
+
+                const data = await res.json();
+                const notifications = data.data?.notifications || [];
+
+                notifications.forEach(notif => {
+                    if (!notif.read) {
+                        showNotificationOverlay(notif);
+                        markAsRead(notif.id);
+                    }
+                });
+            } catch (error) {
+                // Silencioso
+            } finally {
+                isFetching = false;
+            }
+        }
+
+
+        let isCooldown = false; // Cooldown global para evitar spam sonoro
+
+        function showNotificationOverlay(notif) {
+            // Se estiver em cooldown, ignora
+            if (isCooldown) {
+                console.log('🔇 Em cooldown de áudio (10s), ignorando visualização.');
+                return;
+            }
+
+            // Remover overlay anterior se existir
+            const existingOverlay = document.getElementById('notification-overlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+
+            // Tela preta fullscreen
+            const overlay = document.createElement('div');
+            overlay.id = 'notification-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #000;
+                z-index: 99999;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                padding: 4vh 5vw;
+                box-sizing: border-box;
+                font-family: 'Inter', sans-serif;
+                overflow: hidden;
+            `;
+
+            const icon = notif.event_type === 'arrival' ? '👋' : '🏠';
+            const title = notif.event_type === 'arrival' ? 'CHEGOU NA ESCOLA' : 'SAIU DA ESCOLA';
+            const color = notif.event_type === 'arrival' ? '#10b981' : '#f59e0b';
+            const time = new Date(notif.timestamp).toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            const photoUrl = notif.photo_url || '';
+
+            const duration = 10; // 10 Segundos
+
+            overlay.innerHTML = `
+                <!-- ESCOLA NO TOPO -->
+                <div style="text-align: center; width: 100%; z-index: 10;">
+                    <div style="font-size: 1.5vh; color: #888; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1vh; font-weight: 300;">NOTIFICAÇÃO DE</div>
+                    <h1 style="font-size: 3.5vh; font-weight: 900; color: white; margin: 0; text-transform: uppercase; line-height: 1.1; word-wrap: break-word; letter-spacing: 1px;">${notif.school_name || 'ESCOLA'}</h1>
+                </div>
+
+                <!-- FOTO CENTRAL COM EFEITO DE PULSO/GLOW -->
+                <div style="
+                    position: relative; 
+                    width: 40vh; 
+                    height: 40vh; 
+                    max-width: 80vw; 
+                    max-height: 80vw; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    margin: 4vh 0;
+                ">
+                    <!-- Camada de Animação de Pulso (Emanando) -->
+                    <div style="
+                        position: absolute;
+                        top: 0; left: 0; right: 0; bottom: 0;
+                        border-radius: 50%;
+                        background: ${color};
+                        z-index: 0;
+                        animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+                    "></div>
+                    
+                    <!-- Segunda Camada (Delay) -->
+                    <div style="
+                        position: absolute;
+                        top: 0; left: 0; right: 0; bottom: 0;
+                        border-radius: 50%;
+                        background: ${color};
+                        z-index: 0;
+                        animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+                        animation-delay: 1.5s;
+                    "></div>
+
+                    <!-- Foto do Aluno -->
+                    <div style="
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        background: #1a1a1a;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 10vh;
+                        color: white;
+                        font-weight: 700;
+                        overflow: hidden;
+                        position: relative;
+                        z-index: 2;
+                        border: 4px solid #000;
+                        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+                    ">
+                        ${photoUrl ? `<img src="${photoUrl}" style="width: 100%; height: 100%; object-fit: cover;">` : notif.student_name.charAt(0).toUpperCase()}
+                    </div>
+
+                    <!-- Ícone de Status -->
+                    <div style="
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        width: 22%;
+                        height: 22%;
+                        background: ${color};
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 3.5vh;
+                        z-index: 3;
+                        border: 4px solid #000;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                        animation: bounce 2s infinite;
+                    ">
+                        ${icon}
+                    </div>
+                </div>
+
+                <!-- INFO INFERIOR -->
+                <div style="text-align: center; width: 90%; z-index: 10;">
+                    <h2 style="font-size: 4vh; font-weight: 800; color: white; margin: 0 0 2vh 0; text-transform: uppercase; line-height: 1.1; letter-spacing: 0.5px;">${notif.student_name}</h2>
+                    <div style="display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); padding: 1.5vh 6vw; border-radius: 50px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); width: auto; max-width: 90%;">
+                        <span style="font-size: 2vh; color: ${color}; font-weight: 700; text-transform: uppercase; margin-right: 15px; white-space: nowrap; letter-spacing: 1px;">${title}</span>
+                        <span style="width: 1px; height: 2.5vh; background: rgba(255,255,255,0.2); margin-right: 15px;"></span>
+                        <span style="font-size: 2.5vh; color: rgba(255,255,255,0.9); font-weight: 400; font-family: monospace;">${time}</span>
+                    </div>
+                </div>
+
+                <style>
+                    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+                    @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+                    
+                    /* Efeito de Onda Expandindo e Sumindo (Degradê) */
+                    @keyframes pulse-ring {
+                        0% {
+                            transform: scale(0.95);
+                            opacity: 0.7;
+                            box-shadow: 0 0 0 0 rgba(${color === '#10b981' ? '16, 185, 129' : '245, 158, 11'}, 0.7);
+                        }
+                        70% {
+                            transform: scale(1.3);
+                            opacity: 0;
+                            box-shadow: 0 0 50px 20px rgba(${color === '#10b981' ? '16, 185, 129' : '245, 158, 11'}, 0);
+                        }
+                        100% {
+                            transform: scale(1.3);
+                            opacity: 0;
+                        }
+                    }
+                </style>
+            `;
+
+            document.body.appendChild(overlay);
+
+            // Som: "Ding Dong" Moderno (Mais alto e claro)
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const audioCtx = new AudioContext();
+
+                // Função de desbloqueio automático (resume)
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                // Função para tocar nota
+                const playTone = (freq, time, length) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, time);
+
+                    // Volume: Mais alto (0.8)
+                    gain.gain.setValueAtTime(0, time);
+                    gain.gain.linearRampToValueAtTime(0.8, time + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.01, time + length);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(time);
+                    osc.stop(time + length);
+                };
+
+                const now = audioCtx.currentTime;
+                // Ding (Mi agudo)
+                playTone(880.00, now, 1.2);
+                // Dong (Dó agudo) - Intervalo clássico de campainha
+                playTone(698.46, now + 0.6, 2.0);
+
+            } catch (e) { console.error("Erro Som", e); }
+
+
+            // REMOVER APÓS 10 SEGUNDOS
+            setTimeout(() => {
+                overlay.style.animation = 'fadeOut 1s ease-out forwards'; // Saída mais lenta
+
+                isCooldown = true;
+
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        overlay.remove();
+                    }
+                }, 1000);
+
+                setTimeout(() => { isCooldown = false; }, 10000);
+
+            }, duration * 1000);
+        }
+
+        async function markAsRead(notificationId) {
+            try {
+                const token = localStorage.getItem('token');
+                // Correção: URL sem espaços extras
+                await fetch(`${API_URL}/guardian/notifications/${notificationId}/read`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+            } catch (error) { console.error('Erro ao marcar como lida:', error); }
+        }
+
+        function navigate(page) {
+            const screens = ['loginScreen', 'registerScreen', 'homeScreen', 'linkScreen', 'reportsScreen', 'notificationsScreen', 'messagesScreen', 'settingsScreen'];
+            screens.forEach(id => document.getElementById(id).classList.add('hidden'));
+
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            const bottomNav = document.getElementById('bottomNav');
+
+            switch (page) {
+                case 'home':
+                    document.getElementById('homeScreen').classList.remove('hidden');
+                    bottomNav.classList.remove('hidden');
+                    navItems[0].classList.add('active');
+                    loadChildren();
+                    break;
+                case 'reports':
+                    document.getElementById('reportsScreen').classList.remove('hidden');
+                    bottomNav.classList.remove('hidden');
+                    navItems[1].classList.add('active');
+                    break;
+                case 'notifications':
+                    document.getElementById('notificationsScreen').classList.remove('hidden');
+                    bottomNav.classList.remove('hidden');
+                    navItems[2].classList.add('active');
+                    break;
+                case 'messages':
+                    document.getElementById('messagesScreen').classList.remove('hidden');
+                    bottomNav.classList.remove('hidden');
+                    navItems[3].classList.add('active');
+                    break;
+                case 'settings':
+                    document.getElementById('settingsScreen').classList.remove('hidden');
+                    bottomNav.classList.remove('hidden');
+                    navItems[4].classList.add('active');
+                    if (user) {
+                        document.getElementById('settingsName').value = user.name;
+                        document.getElementById('settingsEmail').value = user.email;
+                        document.getElementById('settingsPhone').value = user.phone || '';
+                    }
+                    break;
+                case 'link':
+                    document.getElementById('linkScreen').classList.remove('hidden');
+                    bottomNav.classList.add('hidden');
+                    resetLink();
+                    break;
+            }
+        }
+
+        function showLogin() {
+            const screens = ['loginScreen', 'registerScreen', 'homeScreen', 'linkScreen', 'reportsScreen', 'notificationsScreen', 'messagesScreen', 'settingsScreen'];
+            screens.forEach(id => document.getElementById(id).classList.add('hidden'));
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('bottomNav').classList.add('hidden');
+        }
+
+        function showRegister() {
+            const screens = ['loginScreen', 'registerScreen', 'homeScreen', 'linkScreen', 'reportsScreen', 'notificationsScreen', 'messagesScreen', 'settingsScreen'];
+            screens.forEach(id => document.getElementById(id).classList.add('hidden'));
+            document.getElementById('registerScreen').classList.remove('hidden');
+        }
+
+        function resetLink() {
+            selectedSchool = null;
+            selectedClass = null;
+            selectedStudent = null;
+
+            document.getElementById('step1').classList.remove('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step4').classList.add('hidden');
+
+            document.getElementById('schoolInput').value = '';
+            document.getElementById('schoolResults').innerHTML = '';
+
+            updateStep(1);
+        }
+
+        function updateStep(step) {
+            const titles = ['Escola', 'Turma', 'Filho', 'Confirmar'];
+            document.getElementById('stepTitle').textContent = `Passo ${step}: ${titles[step - 1]}`;
+
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`bar${i}`).classList.toggle('active', i <= step);
+            }
+        }
+
+        let schoolTimeout;
+        async function searchSchools() {
+            const query = document.getElementById('schoolInput').value.trim();
+
+            if (query.length < 3) {
+                document.getElementById('schoolResults').innerHTML = '';
+                return;
+            }
+
+            clearTimeout(schoolTimeout);
+            schoolTimeout = setTimeout(async () => {
+                try {
+                    const res = await fetch(`${API_URL}/schools`);
+                    const data = await res.json();
+
+                    const schools = data.data.schools.filter(s =>
+                        s.name.toLowerCase().includes(query.toLowerCase())
+                    );
+
+                    const div = document.getElementById('schoolResults');
+
+                    if (schools.length === 0) {
+                        div.innerHTML = '<div class="result-item">Nenhuma escola encontrada</div>';
+                    } else {
+                        div.innerHTML = schools.map(s => `
+                            <div class="result-item" onclick="selectSchool(${s.id}, '${s.name}')">
+                                🏫 ${s.name}
+                            </div>
+                        `).join('');
+                    }
+                } catch (error) {
+                    console.error('Erro:', error);
+                }
+            }, 300);
+        }
+
+        async function selectSchool(id, name) {
+            selectedSchool = { id, name };
+            document.getElementById('schoolInput').value = name;
+            document.getElementById('schoolResults').innerHTML = '';
+
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            updateStep(2);
+
+            try {
+                const res = await fetch(`${API_URL}/schools/${id}/classes`);
+                const data = await res.json();
+
+                const div = document.getElementById('classResults');
+                const classes = data.data.classes;
+
+                if (classes.length === 0) {
+                    div.innerHTML = '<div class="result-item">Nenhuma turma encontrada</div>';
+                } else {
+                    div.innerHTML = classes.map(c => `
+                        <div class="result-item" onclick="selectClass('${c.name}')">
+                            📚 ${c.name}
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        }
+
+        function selectClass(name) {
+            selectedClass = name;
+
+            document.querySelectorAll('#classResults .result-item').forEach(item => {
+                item.classList.toggle('selected', item.textContent.includes(name));
+            });
+
+            setTimeout(() => {
+                document.getElementById('step2').classList.add('hidden');
+                document.getElementById('step3').classList.remove('hidden');
+                updateStep(3);
+            }, 300);
+        }
+
+        let studentTimeout;
+        async function searchStudent() {
+            const query = document.getElementById('studentInput').value.trim();
+
+            if (query.length < 3) return;
+
+            clearTimeout(studentTimeout);
+            studentTimeout = setTimeout(async () => {
+                try {
+                    // Busca global na escola (ignorando filtro de turma para facilitar encontrar o aluno)
+                    const url = `${API_URL}/schools/${selectedSchool.id}/students?search=${encodeURIComponent(query)}`;
+                    const res = await fetch(url);
+                    const data = await res.json();
+
+                    const students = data.data.students;
+
+                    if (students.length > 0) {
+                        selectedStudent = students[0];
+
+                        document.getElementById('step3').classList.add('hidden');
+                        document.getElementById('step4').classList.remove('hidden');
+                        updateStep(4);
+
+                        const photoDiv = document.getElementById('previewPhoto');
+                        if (selectedStudent.photo_url) {
+                            photoDiv.innerHTML = `<img src="${selectedStudent.photo_url}">`;
+                        } else {
+                            photoDiv.textContent = selectedStudent.name.charAt(0).toUpperCase();
+                        }
+
+                        document.getElementById('previewName').textContent = selectedStudent.name;
+                        document.getElementById('previewDetails').textContent = `${selectedClass} • ${selectedSchool.name}`;
+                    }
+                } catch (error) {
+                    console.error('Erro:', error);
+                }
+            }, 800);
+        }
+
+        async function confirmLink() {
+            const errorDiv = document.getElementById('linkError');
+            const successDiv = document.getElementById('linkSuccess');
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+
+            try {
+                const token = localStorage.getItem('token');
+
+                const res = await fetch(`${API_URL}/guardian/link-student`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        school_id: selectedSchool.id,
+                        student_id: selectedStudent.id
+                    })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.message || 'Erro ao vincular');
+                }
+
+                successDiv.textContent = `✅ ${selectedStudent.name} vinculado!`;
+                successDiv.classList.remove('hidden');
+
+                setTimeout(() => {
+                    navigate('home');
+                }, 2000);
+            } catch (error) {
+                errorDiv.textContent = `❌ ${error.message}`;
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        async function register() {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPassword').value;
+
+            const errorDiv = document.getElementById('registerError');
+            const successDiv = document.getElementById('registerSuccess');
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+
+            if (!name || !email || !password) {
+                errorDiv.textContent = '❌ Preencha todos os campos';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone, password })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || 'Erro ao cadastrar');
+                }
+
+                successDiv.textContent = '✅ Conta criada!';
+                successDiv.classList.remove('hidden');
+
+                setTimeout(() => showLogin(), 2000);
+            } catch (error) {
+                errorDiv.textContent = `❌ ${error.message}`;
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.classList.add('hidden');
+
+            if (!email || !password) {
+                errorDiv.textContent = '❌ Preencha todos os campos';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || 'Credenciais inválidas');
+                }
+
+                const token = data.data?.token || data.token;
+                const userData = data.data?.guardian || data.user;
+
+                if (!token || !userData) {
+                    throw new Error('Resposta inválida');
+                }
+
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(userData));
+                user = userData;
+
+                navigate('home');
+            } catch (error) {
+                errorDiv.textContent = `❌ ${error.message}`;
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        function logout() {
+            stopNotificationPoller();
+            localStorage.clear();
+            user = null;
+            showLogin();
+        }
+
+        async function loadChildren() {
+            const token = localStorage.getItem('token');
+            const div = document.getElementById('childrenList');
+
+            try {
+                const res = await fetch(`${API_URL}/guardian/students`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await res.json();
+                const children = data.data.students;
+
+                if (user) {
+                    document.getElementById('greeting').textContent = `Olá, ${user.name.split(' ')[0]}!`;
+                }
+
+                if (!children || children.length === 0) {
+                    div.innerHTML = `
+                        <div class="empty">
+                            <div class="empty-icon">👶</div>
+                            <p class="empty-title">Nenhum filho vinculado</p>
+                            <p class="empty-text">Clique abaixo para vincular</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                div.innerHTML = children.map(child => `
+                    <div class="child-card">
+                        <div class="child-avatar">
+                            ${child.photo_url ? `<img src="${child.photo_url}">` : child.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="child-info">
+                            <div class="child-name">${child.name}</div>
+                            <div class="child-details">${child.class_name || 'Sem turma'} • ${child.school_name}</div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

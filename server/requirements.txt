@@ -1,0 +1,25 @@
+# Dependências Python para Servidor DeepFace
+# EduFocus - Sistema de Análise Facial
+
+# Framework Web
+Flask==3.0.0
+flask-cors==4.0.0
+
+# DeepFace e dependências
+deepface==0.0.90
+tensorflow==2.15.0
+
+# Processamento de imagem
+opencv-python==4.9.0.80
+Pillow==10.2.0
+
+# Computação científica
+numpy==1.26.3
+pandas==2.1.4
+
+# Banco de dados
+sqlite3  # Já vem com Python
+
+# Utilitários
+python-dotenv==1.0.0
+requests==2.31.0

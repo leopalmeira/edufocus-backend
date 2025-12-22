@@ -1,0 +1,16 @@
+{
+    "name": "EduFocus Tablet",
+    "short_name": "EduFocus",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#0f172a",
+    "orientation": "landscape",
+    "icons": [
+        {
+            "src": "/vite.svg",
+            "type": "image/svg+xml",
+            "sizes": "512x512"
+        }
+    ]
+}

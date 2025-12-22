@@ -1,0 +1,27 @@
+{
+    "name": "EduFocus Responsáveis",
+    "short_name": "EduFocus",
+    "description": "Acompanhe seu filho em tempo real",
+    "start_url": "/guardian-pwa/",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#0f172a",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "64x64",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "/favicon.ico",
+            "sizes": "192x192",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "/favicon.ico",
+            "sizes": "512x512",
+            "type": "image/x-icon"
+        }
+    ]
+}

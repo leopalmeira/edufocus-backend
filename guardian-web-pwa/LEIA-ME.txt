@@ -1,0 +1,14 @@
+Este é o PROJETO SEPARADO do App dos Responsáveis.
+
+Ele funciona de forma independente, mas está interligado ao sistema principal para login e dados.
+
+COMO RODAR:
+1. Abra o terminal nesta pasta
+2. Execute: npm run dev
+3. Acesse: http://192.168.0.11:5174
+
+DADOS:
+- Roda na porta 5174
+- Conecta na API principal na porta 5000
+- Tem login próprio
+- Recebe notificações em tempo real

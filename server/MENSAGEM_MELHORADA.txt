@@ -1,0 +1,17 @@
+// MENSAGEM MELHORADA PARA WHATSAPP
+// Copie e cole esta mensagem no whatsapp-service.js linha 177
+
+const message = `╔═══════════════════════════
+║  🎓 *${schoolName}*
+╚═══════════════════════════
+
+✅ *CHEGADA CONFIRMADA*
+
+👤 *Aluno:* ${student.name}
+${student.class_name ? `📚 *Turma:* ${student.class_name}` : ''}
+
+📅 *${date}*
+🕐 *${time}*
+
+━━━━━━━━━━━━━━━━━━━━━━━
+Seu filho(a) chegou com segurança! 😊`;
