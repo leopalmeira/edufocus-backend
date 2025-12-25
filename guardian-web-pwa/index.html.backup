@@ -651,8 +651,8 @@
     </div>
 
     <script>
-        // API PRODUÇÃO - Backend Unificado (Render)
-        const API_URL = 'https://edufocus-backend.onrender.com/api';
+        // [REVERTIDO] API ORIGINAL (Porta 3000)
+        const API_URL = 'http://localhost:3000/api';
 
         let user = null;
         let selectedSchool = null;
